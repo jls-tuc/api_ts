@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+
 import cors from 'cors';
 import morgan from 'morgan';
 require('dotenv').config();
@@ -7,6 +8,7 @@ import dbArsat from './conexiones/dbMongo';
 // rutas
 import serverRoute from './routes/server';
 import personaRoute from './routes/personas/persona';
+import provLocRoute from './routes/comunes/provLoc';
 import edificiosRoute from './routes/edificios/edificios';
 import pacienteRoute from './routes/pacientes/pacientes';
 import profesionalesRoute from './routes/profesionales/profesionales';
@@ -40,10 +42,11 @@ class ServerSPS {
     //cors
     this.app.use(cors());
     //express
-    this.app.use(express.urlencoded({ limit: '50mb', extended: true }));
+    this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json({ limit: '50mb' }));
+
     this.app.all('*', (req, res, next) => {
-      // res.header('Access-Control-Allow-Origin', 'http://localhost:8000');
+      //res.header('Access-Control-Allow-Origin', 'http://localhost:4200');
       res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, Authorization, X-Requested-With,Accept ');
       res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,PATCH,OPTIONS');
@@ -62,6 +65,7 @@ class ServerSPS {
   routes() {
     this.app.use(this.apiPath, serverRoute);
     this.app.use(this.apiPath, personaRoute);
+    this.app.use(this.apiPath, provLocRoute);
     this.app.use(this.apiPath, edificiosRoute);
     this.app.use(this.apiPath, pacienteRoute);
     this.app.use(this.apiPath, profesionalesRoute);

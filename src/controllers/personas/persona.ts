@@ -4,26 +4,26 @@ import { getServicioRenaper } from '../../util/webServices/servicioRenaper';
 import { savePersona, resizeFoto } from './personaCtrl';
 
 export const getPersonaRenaper = async (req: Request, res: Response) => {
-  console.log('Query Persona: ', req.body);
+  console.log('Query Persona: ', req.query);
 
   let persona: any = await personaSchema.persona.find({
-    dni: req.body.dni,
-    sexo: req.body.sexo,
+    dni: req.query.dni,
+    sexo: req.query.sexo,
   });
   console.log('Encuentra persona: ', persona);
   if (persona.length === 0) {
     persona = await getServicioRenaper({
-      documento: req.body.dni,
-      sexo: req.body.sexo,
+      documento: req.query.dni,
+      sexo: req.query.sexo,
     });
     persona = await getServicioRenaper({
-      documento: req.body.dni,
-      sexo: req.body.sexo,
+      documento: req.query.dni,
+      sexo: req.query.sexo,
     });
     console.log('Encuentra persona RENAPER: ', persona);
     if (persona && persona.datos.nroError === 0) {
-      persona.datos.sexo = req.body.sexo;
-      persona.datos.dni = req.body.dni;
+      persona.datos.sexo = req.query.sexo;
+      persona.datos.dni = req.query.dni;
       persona.datos.cuil = persona.datos.cuil !== '' ? persona.datos.cuil : persona.datos.dni;
       persona.datos.foto = await resizeFoto(persona.datos.foto);
 

@@ -5,7 +5,6 @@ const serv = process.env.RNPSERV;
 const login = { usuario: 'sistema_ciudadania_sgc', password: 'Lame**852' };
 
 export function getServicioRenaper(persona, userInfo?) {
-  console.log('ING', login);
   let resultado: any;
   return new Promise((resolve, reject) => {
     if (persona) {
