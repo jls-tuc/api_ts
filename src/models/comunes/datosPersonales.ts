@@ -18,7 +18,7 @@ const datosPersonalesSchema = new mongoose.Schema({
     type: String,
     es_indexed: true,
   },
-  certificadoRenaper: String,
+  nroTramite: String,
   cuil: {
     type: String,
     es_indexed: true,

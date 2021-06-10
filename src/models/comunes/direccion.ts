@@ -1,14 +1,16 @@
 import * as mongoose from 'mongoose';
-import * as ubicacionSchema from './ubicacion';
+
 
 const schema = new mongoose.Schema({
   tipo: {
     type: String,
     required: false,
   },
-  valor: String,
   codigoPostal: String,
-  ubicacion: { type: ubicacionSchema },
+  barrio: { type: String, required: false },
+  localidad: { type: String, required: false },
+  provincia: { type: String, required: false },
+  pais: { type: String, required: false },
   geoReferencia: {
     type: [Number],
   },
