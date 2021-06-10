@@ -16,10 +16,7 @@ export const getPersonaRenaper = async (req: Request, res: Response) => {
       documento: req.query.dni,
       sexo: req.query.sexo,
     });
-    persona = await getServicioRenaper({
-      documento: req.query.dni,
-      sexo: req.query.sexo,
-    });
+
     console.log('Encuentra persona RENAPER: ', persona);
     if (persona && persona.datos.nroError === 0) {
       persona.datos.sexo = req.query.sexo;

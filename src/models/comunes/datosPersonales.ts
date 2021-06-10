@@ -10,30 +10,37 @@ const datosPersonalesSchema = new mongoose.Schema({
     type: String,
     es_indexed: true,
   },
+  dni: {
+    type: String,
+    es_indexed: true,
+  },
   fechaNacimiento: {
     type: Date,
     es_indexed: true,
   },
-  documento: {
+  edad: {
     type: String,
     es_indexed: true,
   },
+  sexo: constantes.SEXO,
+  genero: constantes.GENERO,
   nroTramite: String,
   cuil: {
     type: String,
     es_indexed: true,
   },
-  sexo: constantes.SEXO,
-  genero: constantes.SEXO,
-  fechaFallecimiento: Date,
+  fechaFallecimiento: {
+    type: String,
+  },
   estadoCivil: constantes.ESTADOCIVIL,
-  fotoId: mongoose.Schema.Types.ObjectId,
   foto: {
     type: String,
     select: false,
   },
-  fotoMobile: String,
-  nacionalidad: String,
+  origenf: {
+    type: String,
+    select: false,
+  },
 });
 
 export = datosPersonalesSchema;
