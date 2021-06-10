@@ -5,19 +5,27 @@ import DireccionSchema from '../comunes/direccion';
 import { constantes } from '../../util/constantes';
 import * as moment from 'moment';
 
-const uniqueValidator = require('mongoose-unique-validator');
-
 const PacienteSchema = new Schema(
   {
-    datosPersonales: [datosPersonalesSchema],
+    nroForm: { type: Number, es_indexed: true },
+    fechaAlta: { type: String },
     activo: Boolean,
-    estado: constantes.ESTADO,
+    datosPersonales: [datosPersonalesSchema],
     direccion: [DireccionSchema],
-    tipoIdentificacion: { type: constantes.IDENTIFICACION, required: false },
-    numeroIdentificacion: {
-      type: String,
-      required: false,
+    datosContacto: {
+      telefono: { type: String, required: false },
+      celular: { type: String, required: false },
+      email: { type: String, required: false },
     },
+    datosContactoEmergencia: {
+      parentesco: { type: String, required: false },
+      nombre: { type: String, required: false },
+      apellido: { type: String, required: false },
+      telefono: { type: String, required: false },
+      celular: { type: String, required: false },
+      email: { type: String, required: false },
+    },
+
     relaciones: [
       {
         relacion: { type: constantes.PARENTESCO },
@@ -39,21 +47,6 @@ const PacienteSchema = new Schema(
         titulo: String,
         nota: String,
         destacada: Boolean,
-      },
-    ],
-    documentos: [
-      {
-        fecha: Date,
-        archivos: [
-          {
-            ext: String,
-            id: String,
-          },
-        ],
-        tipo: {
-          id: String,
-          label: String,
-        },
       },
     ],
   },
