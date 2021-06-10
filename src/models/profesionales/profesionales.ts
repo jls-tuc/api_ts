@@ -1,5 +1,5 @@
-import { Schema, model } from 'mongoose';
 import * as mongoose from 'mongoose';
+import datosPersonalesSchema from '../comunes/datosPersonales';
 import DireccionSchema from '../comunes/direccion';
 
 const matriculacionSchema = new mongoose.Schema({
@@ -18,17 +18,16 @@ const matriculacionSchema = new mongoose.Schema({
 
 const ProfesionalSchema = new mongoose.Schema(
   {
-    habilitado: { type: Boolean, default: true },
-    nombre: { type: String, required: false },
-    apellido: { type: String, required: false },
-    tipoDocumento: { type: String, required: false },
-    documento: { type: String, required: false },
-    cuit: { type: String, required: false },
-    fechaNacimiento: { type: Date, required: false },
-    sexo: { type: String, required: false },
-    domicilios: [DireccionSchema],
-    foto: { type: String, required: false },
-    fotoArchivo: { type: String, required: false },
+    nroForm: { type: Number, es_indexed: true },
+    fechaAlta: { type: String },
+    activo: Boolean,
+    datosPersonales: { datosPersonalesSchema },
+    direccion: [DireccionSchema],
+    datosContacto: {
+      telefono: { type: String, required: false },
+      celular: { type: String, required: false },
+      email: { type: String, required: false },
+    },
     firmas: [
       {
         imgArchivo: { type: String, required: false },
@@ -36,7 +35,7 @@ const ProfesionalSchema = new mongoose.Schema(
       },
     ],
     incluidoSuperintendencia: { type: Boolean, default: false },
-    formacionGrado: [
+    formacionAcacemica: [
       {
         profesion: { type: String, required: false },
         entidadFormadora: { type: String, required: false },
@@ -44,10 +43,9 @@ const ProfesionalSchema = new mongoose.Schema(
         tituloFileId: { type: String, required: false },
         fechaTitulo: { type: Date, required: false },
         fechaEgreso: { type: Date, required: false },
-        renovacion: { type: Boolean, default: false },
-        papelesVerificados: { type: Boolean, default: false },
-        matriculacion: [matriculacionSchema],
-        matriculado: { type: Boolean, default: false },
+        renovacion: { type: String, required: false },
+        papelesVerificados: { type: String, required: false },
+        matriculado: { type: String, required: false },
         fechaDeInscripcion: Date,
       },
     ],

@@ -1,11 +1,24 @@
 import { Request, Response } from 'express';
 import { profesional } from '../../models/profesionales/profesionales';
+import moment from 'moment';
+import { getNro } from '../../util/numerador';
 
 export const postProfesional = async (req: Request, res: Response) => {
-  console.log('EntraPost', req.body);
+  moment.locale('ARG');
+  req.body.fechaAlta = moment().format('YYYY-MM-DD');
+  const ultimoNroRegistro: any = await profesional.findOne().sort({ field: 'asc', _id: -1 }).limit(1);
+  // console.log("1", ultimoNroRegistro);
+  if (ultimoNroRegistro) {
+    req.body.nroForm = await getNro(ultimoNroRegistro.nroForm);
+    // console.log('2', req.body.nroForm);
+  } else {
+    req.body.nroForm = 1;
+  }
   const newProfesional = new profesional(req.body);
+  console.log('EntraPost', newProfesional);
   newProfesional.save((err, data) => {
     if (err) {
+      console.log(`err`, err);
       return res.json(err);
     }
     return res.json({
