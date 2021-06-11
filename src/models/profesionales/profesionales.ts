@@ -21,7 +21,7 @@ const ProfesionalSchema = new mongoose.Schema(
     nroForm: { type: Number, es_indexed: true },
     fechaAlta: { type: String },
     activo: Boolean,
-    datosPersonales: { datosPersonalesSchema },
+    datosPersonales: datosPersonalesSchema,
     direccion: [DireccionSchema],
     datosContacto: {
       telefono: { type: String, required: false },

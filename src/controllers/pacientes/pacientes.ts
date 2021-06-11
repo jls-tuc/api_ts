@@ -29,16 +29,23 @@ export const postPaciente = async (req: Request, res: Response) => {
 };
 
 export const getPaciente = async (req: Request, res: Response) => {
-  console.log('getPaciente'),
-    paciente.find((err, data) => {
-      if (err) {
-        return res.json(err);
-      }
-      return res.json({
-        ok: true,
-        data,
-      });
+  console.log('getPaciente', req.query);
+  if (req.query.dni) {
+    let persona: any = await paciente.find({ 'datosPersonales.dni': req.query.dni });
+    return res.json({
+      ok: true,
+      persona,
     });
+  }
+  paciente.find((err, data) => {
+    if (err) {
+      return res.json(err);
+    }
+    return res.json({
+      ok: true,
+      data,
+    });
+  });
 };
 
 export const getByIdPaciente = async (req: Request, res: Response) => {
